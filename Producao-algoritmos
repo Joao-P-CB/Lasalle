@@ -1,0 +1,161 @@
+#include <stdio.h>
+#include <math.h>
+
+int main() 
+{
+    // variável i para iteracao, variável sair como flag caso o usuario queira terminar o programa (sair = 1 signfica terminar a execução), variaveis aceitavel e aceitavel oper como flags se os valores lidos estão de acordo com o que o programa espera e a variavel expoente para a potencia.
+    int i, expoente, sair=0, aceitavel, aceitaveloper;
+    // variaveis num1 e num2 para as operações e resultado para exibir o resultado final.
+    float num1, num2, resultado;
+    // variável para ler a operação que o usuário quer
+    char oper;
+    
+    // apresentação
+    printf("Trabalho de produção: \nFeito por: Joao Pedro Cavalheiro Borba \nCurso: Analise e desenvolvimento de sistemas \nUniversidade Lasalle \nMatrícula: 202220162\n\n");
+    printf("Esse programa realiza raiz quadrada, soma, subtracao, multiplicacao, divisao e potencia. \n");
+    do
+    {
+        aceitavel = 1; // Inicia como uma leitura aceitável, porém altera para 0 caso o valor digitado não esteja de acordo com as opções
+        
+        printf("\n\nDigite: \n'+' para soma \n'-' para subtracao \n'*' para multiplicacao \n'/' para divisao \n'^' para potencia \n'r' para raiz quadrada \n Ou 's' para terminar o programa\n Qual a opcao desejada? ");
+        fflush(stdin); // limpando o buffer de entrada para scanf não ler valores não desejados que já estejam lá
+        scanf(" %c", &oper); // leitura de um caractere
+            /*
+            
+            
+                Inicio das operacoes
+                Soma
+            */
+        if (oper == '+')
+        {
+            printf("Digite os dois numeros a serem somados, separados por um espaço: ");
+            scanf("%f %f", &num1, &num2); // faz a leitura de 2 numeros
+            resultado = num1 + num2; // soma os numeros
+            printf("\nO resultado da soma eh %f", resultado); // imprime o resultado na tela
+            /*
+                Fim da soma
+                
+                
+                
+                Inicio da subtracao
+            */
+        } else if (oper == '-')
+        {
+            printf("Digite o minuendo: "); 
+            scanf("%f", &num1); // lê a base da subtração
+            printf("Digite o subtraendo: ");
+            scanf("%f", &num2); // lê o valor a ser subtraído
+            resultado = num1 - num2;
+            printf("\nO resultado da subtracao eh %f", resultado); // imprime
+            /*
+                Fim da subtracao
+                
+                
+                
+                Inicio da multiplicacao
+            */
+        } else if (oper == '*')
+        {
+            printf("Digite os dois numeros a serem multiplicados, separados por um espaco: ");
+            scanf("%f %f", &num1, &num2); // lê os dois números da operaçãp
+            resultado = num1 * num2; // multiplica os números
+            printf("\nO resultado da multiplicacao eh %f", resultado);
+            /*
+                Fim da multiplicacao
+                
+                
+                
+                Inicio da divisao
+            */
+        } else if (oper == '/') 
+        {
+            printf("Digite o numero base da divisao: ");
+            scanf("%f", &num1); // lê a base da divisão
+            do
+            {
+                aceitaveloper = 1; // de início assume que o divisor é aceitável
+                printf("Digite o divisor, deve ser um numero diferente de 0: ");
+                scanf("%f", &num2);
+                if (num2 == 0) // se o divisor for 0, muda a flag para inválido
+                {
+                    printf("Divisor deve ser diferente de 0, tente novamente.\n");
+                    aceitaveloper = 0; // número inválido
+                }
+            } while (aceitaveloper == 0); // repete até receber um divisor válido
+            resultado = num1 / num2; // realiza a divisão
+            printf("\nO resultado da divisao eh %f", resultado); 
+            /*
+                Fim da divisao
+                
+                
+                
+                Inicio da potencia
+            */
+        } else if (oper == '^')
+        {
+            printf("Digite o numero base da potencia: ");
+            scanf("%f", &num1); // lê a base da potência
+            do
+            {
+                aceitaveloper = 1; // mesmo processo de validação da divisão
+                printf("Digite o expoente da potencia (numero inteiro, sendo positivo ou 0): ");
+                scanf("%i", &expoente);
+                if (expoente < 0) // se o expoente for negativo o programa pede novamente até que não seja
+                {
+                    printf("Expoente nao pode ser negativo, tente novamente. \n");
+                    aceitaveloper = 0;
+                }
+            } while (aceitaveloper == 0);
+            if (expoente == 0) // Testa se o expoente é 0, se for o resultado sempre será 1
+            {
+                resultado = 1;
+            } else // se o exponte não for 0
+            {
+                resultado = num1; // faz o resultado o mesmo numero da base, assim removendo a primeira iteração do expoente
+                for(i = expoente - 1; i > 0; i--) // como a variável 'resultado' recebeu o valor da base, 1 iteração da potência já foi realizada, por isso i recebe o valor de "expoente - 1" para realizar o resto da multiplicações
+                {
+                    resultado = resultado * num1; // dentro do for repete a multiplicação até que todas as vezes tenham sido completas
+                }
+            }
+            printf("\nO resultado da potencia eh %f", resultado); 
+            /* 
+                Final da potencia
+                
+                
+                
+                Inicio da raiz
+            */
+        } else if (oper == 'r' || oper == 'R')
+        {
+            do
+            {
+                aceitaveloper = 1; // testa se o número digitado não é negativo
+                printf("Digite o numero que deseja o valor da raiz (o numero deve ser positivo ou 0): ");
+                scanf("%f", &num1);
+                if (num1 < 0)
+                {
+                    printf("O numero inserido eh invalido, tente novamente. \n");
+                    aceitaveloper = 0;
+                }
+            } while ( aceitaveloper == 0); // repete até que o número digitado não seja negativo
+            resultado = sqrt(num1);
+            printf("\nO resultado da raiz eh %f", resultado); 
+            /* 
+                Final da raiz
+                
+                
+                
+                Fim das operacoes
+            */
+        } else if (oper == 's' || oper == 'S') // se o usuário digitar S, o programa finaliza
+        {
+            printf("Finalizando programa.");
+            sair = 1;
+        } else // se nenhum dos testes acima funcionou, significa que o usuário não digitou uma opção válida, o programa volta ao início caso entre aqui
+        {
+            aceitavel = 0; // flag de opção inválida, faz o programa repetir
+            printf("Opcao invalida, tente novamente \n");
+        }
+    } while(aceitavel == 0 && sair == 0);
+    return 0;
+}
