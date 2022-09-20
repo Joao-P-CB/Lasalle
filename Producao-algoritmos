@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <math.h>
-
+// Github: https://github.com/Joao-P-CB/Lasalle/
 int main() 
 {
     // variável i para iteracao, variável sair como flag caso o usuario queira terminar o programa (sair = 1 signfica terminar a execução), variaveis aceitavel e aceitavel oper como flags se os valores lidos estão de acordo com o que o programa espera e a variavel expoente para a potencia.
